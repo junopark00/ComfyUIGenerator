@@ -1,6 +1,7 @@
-# ComfyUI API Client
+# ComfyUIGenerator
 ![main](/source/img2mesh_result.png)
-A modern PySide6-based GUI application for interacting with ComfyUI API, supporting both text-to-image generation and image-to-mesh conversion with an integrated 3D viewer.
+A PySide6-based GUI application for interacting with ComfyUI API, 
+supporting both text-to-image generation and image-to-mesh conversion with an integrated 3D viewer.
 
 ## Features
 
@@ -17,7 +18,6 @@ A modern PySide6-based GUI application for interacting with ComfyUI API, support
 - Configurable mesh parameters (face count, guidance scale, steps)
 
 ### 🖥️ User Interface
-- Modern dark theme with custom Lato font integration
 - Drag-and-drop image input with preview
 - Real-time log monitoring with color-coded messages
 - Responsive layout with integrated 3D viewer
@@ -42,8 +42,8 @@ Pillow (PIL)
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/comfyui-api-client.git
-   cd comfyui-api-client
+   git clone https://github.com/junopark00/ComfyUIGenerator.git
+   cd ComfyUIGenerator
    ```
 
 2. **Install Python dependencies**
