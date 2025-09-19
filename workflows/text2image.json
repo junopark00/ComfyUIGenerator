@@ -1,0 +1,192 @@
+{
+  "282": {
+    "inputs": {
+      "samples": [
+        "286",
+        0
+      ],
+      "vae": [
+        "283",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "283": {
+    "inputs": {
+      "vae_name": "diffusion_pytorch_model.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load VAE"
+    }
+  },
+  "284": {
+    "inputs": {
+      "clip_name1": "t5xxl_fp16.safetensors",
+      "clip_name2": "clip_l.safetensors",
+      "type": "flux",
+      "device": "default"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {
+      "title": "DualCLIPLoader"
+    }
+  },
+  "285": {
+    "inputs": {
+      "unet_name": "flux_dev.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load Diffusion Model"
+    }
+  },
+  "286": {
+    "inputs": {
+      "noise": [
+        "290",
+        0
+      ],
+      "guider": [
+        "289",
+        0
+      ],
+      "sampler": [
+        "287",
+        0
+      ],
+      "sigmas": [
+        "288",
+        0
+      ],
+      "latent_image": [
+        "292",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "SamplerCustomAdvanced"
+    }
+  },
+  "287": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSamplerSelect"
+    }
+  },
+  "288": {
+    "inputs": {
+      "scheduler": "simple",
+      "steps": 20,
+      "denoise": 1,
+      "model": [
+        "293",
+        0
+      ]
+    },
+    "class_type": "BasicScheduler",
+    "_meta": {
+      "title": "BasicScheduler"
+    }
+  },
+  "289": {
+    "inputs": {
+      "model": [
+        "293",
+        0
+      ],
+      "conditioning": [
+        "291",
+        0
+      ]
+    },
+    "class_type": "BasicGuider",
+    "_meta": {
+      "title": "BasicGuider"
+    }
+  },
+  "290": {
+    "inputs": {
+      "noise_seed": 165371458226825
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "RandomNoise"
+    }
+  },
+  "291": {
+    "inputs": {
+      "guidance": 3.5,
+      "conditioning": [
+        "294",
+        0
+      ]
+    },
+    "class_type": "FluxGuidance",
+    "_meta": {
+      "title": "FluxGuidance"
+    }
+  },
+  "292": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptySD3LatentImage",
+    "_meta": {
+      "title": "EmptySD3LatentImage"
+    }
+  },
+  "293": {
+    "inputs": {
+      "max_shift": 1.1500000000000001,
+      "base_shift": 0.5000000000000001,
+      "width": 1024,
+      "height": 1024,
+      "model": [
+        "285",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingFlux",
+    "_meta": {
+      "title": "ModelSamplingFlux"
+    }
+  },
+  "294": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "284",
+        0
+      ]
+    },
+    "class_type": "CLIP Text Encode (Auto Translate)",
+    "_meta": {
+      "title": "Image Prompt (Auto Translate)"
+    }
+  },
+  "299": {
+    "inputs": {
+      "filename_prefix": "ImageGen/image",
+      "images": [
+        "282",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}
