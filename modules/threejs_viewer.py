@@ -454,6 +454,19 @@ THREEJS_HTML = '''
       });
     }
   }
+  
+  function onWindowResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+    
+    renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', onWindowResize);
 
   window.addEventListener('resize', function() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -479,7 +492,9 @@ THREEJS_HTML = '''
           child.material = new THREE.MeshBasicMaterial({
             wireframe: true,
             color: 0x2cdcff,
-            side: THREE.DoubleSide
+            side: THREE.DoubleSide,
+            depthTest: false,
+            depthWrite: false
           });
         }
       }
@@ -594,6 +609,7 @@ class ThreeJSGLBViewer(QWebEngineView):
             os.makedirs(self._threejs_dir)
         self._ensure_threejs_dependencies()
         self._write_html_file()
+        self.loadFinished.connect(self._on_load_finished)
 
     def _ensure_threejs_dependencies(self):
         import urllib.request
@@ -612,6 +628,17 @@ class ThreeJSGLBViewer(QWebEngineView):
                     urllib.request.urlretrieve(url, dst)
                 except Exception as e:
                     print(f"Failed to download {fname}: {e}")
+                    
+    def _on_load_finished(self, ok):
+        if ok:
+            # 페이지 로딩 직후, Qt 위젯의 실제 크기에 맞춰 Three.js 캔버스 크기 갱신
+            self.page().runJavaScript("if (typeof onWindowResize === 'function') { onWindowResize(); }")
+            
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        # resize 이벤트가 발생할 때마다 JS의 리사이즈 함수 호출
+        # (WebEngine의 내부 resize 이벤트보다 Python 이벤트가 더 즉각적일 수 있음)
+        self.page().runJavaScript("if (typeof onWindowResize === 'function') { onWindowResize(); }")
 
     def _write_html_file(self):
         self._html_path = os.path.join(self._threejs_dir, 'threejs_temp.html')

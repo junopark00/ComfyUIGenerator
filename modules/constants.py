@@ -1,8 +1,14 @@
+import os
 import datetime
+from pathlib import Path
+from MTHDLib.storage_paths import StoragePaths
 
-COMFY_INPUT_DIR = "/path/to/your/comfyui/input"
-COMFY_OUTPUT_DIR = "/path/to/your/comfyui/output"
-COMFY_API_URL = "http://localhost:8188"
+# COMFY_ROOT = os.path.join(StoragePaths().MTHD_CORE, "StandAlone", "ComfyUI", "ComfyUI")
+COMFY_ROOT = Path(StoragePaths().MTHD_CORE) / "AI"
+COMFY_INPUT_DIR = COMFY_ROOT / "input"
+COMFY_OUTPUT_DIR = COMFY_ROOT / "output"
+COMFY_LOG_PATH = COMFY_ROOT / "comfyui.log"
+COMFY_API_URL = "http://192.168.15.242:8187"
 
 FONT_DIR = "/source/font"
 

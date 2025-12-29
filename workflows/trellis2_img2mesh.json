@@ -1,0 +1,161 @@
+{
+  "2": {
+    "inputs": {
+      "include_1024": true,
+      "background_color": "black",
+      "dinov3": [
+        "12",
+        0
+      ],
+      "image": [
+        "16",
+        0
+      ],
+      "mask": [
+        "16",
+        1
+      ]
+    },
+    "class_type": "Trellis2GetConditioning",
+    "_meta": {
+      "title": "TRELLIS.2 Get Conditioning"
+    }
+  },
+  "3": {
+    "inputs": {
+      "seed": 988916170,
+      "resolution": "1024",
+      "ss_guidance_strength": 12,
+      "ss_sampling_steps": 7.5,
+      "shape_guidance_strength": 12,
+      "shape_sampling_steps": 12,
+      "shape_pipeline": [
+        "13",
+        0
+      ],
+      "conditioning": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "Trellis2ImageToShape",
+    "_meta": {
+      "title": "TRELLIS.2 Image to Shape"
+    }
+  },
+  "5": {
+    "inputs": {
+      "seed": 1145135738,
+      "tex_guidance_strength": 7.5,
+      "tex_sampling_steps": 12,
+      "texture_pipeline": [
+        "14",
+        0
+      ],
+      "conditioning": [
+        "2",
+        0
+      ],
+      "shape_slat": [
+        "3",
+        0
+      ],
+      "subs": [
+        "3",
+        1
+      ]
+    },
+    "class_type": "Trellis2ShapeToTexturedMesh",
+    "_meta": {
+      "title": "TRELLIS.2 Shape to Textured Mesh"
+    }
+  },
+  "7": {
+    "inputs": {
+      "decimation_target": 500000,
+      "texture_size": 2048,
+      "remesh": true,
+      "filename_prefix": "trellis2",
+      "trimesh": [
+        "5",
+        0
+      ],
+      "voxelgrid": [
+        "5",
+        1
+      ]
+    },
+    "class_type": "Trellis2ExportGLB",
+    "_meta": {
+      "title": "TRELLIS.2 Export GLB"
+    }
+  },
+  "9": {
+    "inputs": {
+      "image": ""
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "12": {
+    "inputs": {
+      "low_vram": false
+    },
+    "class_type": "LoadTrellis2DinoV3",
+    "_meta": {
+      "title": "Load TRELLIS.2 DinoV3"
+    }
+  },
+  "13": {
+    "inputs": {
+      "resolution": "1024_cascade",
+      "keep_model_loaded": true,
+      "attn_backend": "auto"
+    },
+    "class_type": "LoadTrellis2ShapeModel",
+    "_meta": {
+      "title": "Load TRELLIS.2 Shape Model"
+    }
+  },
+  "14": {
+    "inputs": {
+      "resolution": "1024_cascade",
+      "keep_model_loaded": true,
+      "attn_backend": "auto"
+    },
+    "class_type": "LoadTrellis2TextureModel",
+    "_meta": {
+      "title": "Load TRELLIS.2 Texture Model"
+    }
+  },
+  "16": {
+    "inputs": {
+      "low_vram": false,
+      "image": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "Trellis2RemoveBackground",
+    "_meta": {
+      "title": "TRELLIS.2 Remove Background"
+    }
+  },
+  "24": {
+    "inputs": {
+      "save_path": "",
+      "overwrite": true,
+      "operation": "move",
+      "source_path": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "SaveToCustomPath",
+    "_meta": {
+      "title": "Save To Custom Path (MTHD)"
+    }
+  }
+}
